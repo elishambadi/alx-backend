@@ -5,9 +5,9 @@ Caching module
 BaseCaching = __import__('base_caching').BaseCaching
 
 
-class BasicCache(BaseCaching):
+class FIFOCache(BaseCaching):
     """
-    Cache class inheriting from BasicCaching
+    Cache class inheriting from BasicCaching implementing FIFO
     Inherits from: BaseCaching
     """
     def __init__(self):
@@ -16,6 +16,9 @@ class BasicCache(BaseCaching):
     def put(self, key, item):
         if (key is not None and item is not None):
             self.cache_data.update({key: item})
+            if (len(self.cache_data) > BaseCaching.MAX_ITEMS):
+                print("DISCARD: {}".format(next(iter(self.cache_data))))
+                self.cache_data.pop(list(self.cache_data)[0])
 
     def get(self, key):
         if (key is not None and self.cache_data.get is not None):
