@@ -5,7 +5,7 @@ Caching module
 BaseCaching = __import__('base_caching').BaseCaching
 
 
-class FIFOCache(BaseCaching):
+class LIFOCache(BaseCaching):
     """
     Cache class inheriting from BasicCaching implementing FIFO
     Inherits from: BaseCaching
@@ -14,23 +14,29 @@ class FIFOCache(BaseCaching):
         """Initialize the Cache
         """
         super().__init__()
+        self.sequence = []
 
     def put(self, key, item):
         """
         put() - adds an item to cache
-              - follows FIFO policy
+              - follows LIFO policy
         Args: self, key, item
         Return: none
         """
         if (key is not None and item is not None):
+            if (key in self.sequence):
+                self.sequence.pop(self.sequence.index(key))
             self.cache_data.update({key: item})
+
             if (len(self.cache_data) > BaseCaching.MAX_ITEMS):
-                print("DISCARD: {}".format(next(iter(self.cache_data))))
-                self.cache_data.pop(list(self.cache_data)[0])
+                print("DISCARD: {}".format(self.sequence[0]))
+                self.cache_data.pop(self.sequence[0])
+                self.sequence.pop(0)
+            self.sequence.insert(0, key)
 
     def get(self, key):
         """
-        get() - gets an item from cache
+        get() - gets an item from the cache
               - uses item key
         Args: self, key
         Return: item or None
