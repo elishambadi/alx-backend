@@ -66,7 +66,6 @@ class LFUCache(BaseCaching):
             #  print("Put {}. Sequence: {}".format(key, self.sequence))
 
     def get(self, key):
-        print("\nGetting some data...")
         """
         get() - gets an item from the cache
               - uses item key
