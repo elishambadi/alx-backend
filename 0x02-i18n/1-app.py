@@ -7,23 +7,20 @@ from flask_babel import Babel
 
 class Config:
     LANGUAGES = ["en", "fr"]
-
-    def get_locale():
-        return request.accept_languages.best_match(Config.LANGUAGES)
-
-    def get_timezone():
-        return 'UTC'
+    BABEL_DEFAULT_LANGUAGE = "en"
+    BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
 app = Flask(__name__)
-babel = Babel(app,
-              locale_selector=Config.get_locale,
-              timezone_selector=Config.get_timezone)
+babel = Babel(app)
 
 
 @app.route('/')
 def home():
     return render_template("1-index.html")
+
+
+app.config.from_object(Config)
 
 
 if __name__ == "__main__":
