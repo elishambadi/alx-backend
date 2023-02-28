@@ -6,6 +6,8 @@ from flask_babel import Babel
 
 
 class Config:
+    """Config class
+    """
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LANGUAGE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
@@ -17,6 +19,8 @@ babel = Babel(app)
 
 @app.route('/')
 def home():
+    """Renders home page
+    """
     return render_template("1-index.html")
 
 
