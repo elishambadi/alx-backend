@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Pagination Functions"""
 
-
 import csv
 from typing import List
 import math
+
 
 def index_range(page, page_size):
     """
@@ -17,6 +17,7 @@ def index_range(page, page_size):
     start = (page - 1) * page_size
     end = start + page_size
     return (start, end)
+
 
 class Server:
     """Server class to paginate a database of popular baby names."""
@@ -46,7 +47,7 @@ class Server:
 
         start, end = index_range(page, page_size)
         dataset = self.dataset()
-        
+
         if start >= len(dataset):
             return []
 
