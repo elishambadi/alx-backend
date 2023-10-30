@@ -25,4 +25,7 @@ class FIFOCache(BaseCaching):
                 del self.cache_data[first_key]
 
     def get(self, key):
+        """
+            Get item from a FIFO Cache
+        """
         return self.cache_data.get(key, None)
