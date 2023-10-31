@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Flask Babel Module"""
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_babel import Babel
 
 app = Flask(__name__)
@@ -17,6 +17,12 @@ class Config:
 app.config.from_object(Config)
 
 babel = app(Babel)
+
+
+@babel.localeselector
+def get_locale():
+    """Gets the most suitable locale"""
+    return request.accept_languages.best_match(['en', 'es'])
 
 
 @app.route('/')
